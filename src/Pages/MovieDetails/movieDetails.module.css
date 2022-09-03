@@ -1,0 +1,60 @@
+.details {
+  max-width: 900px;
+  margin: 35px auto 0;
+}
+
+.info {
+  display: flex;
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.12), 0px 6px 6px rgba(0, 0, 0, 0.06),
+    2px 6px 8px rgba(0, 0, 0, 0.16);
+}
+
+.img {
+  max-width: 400px;
+  margin-right: 50px;
+}
+
+.about {
+  margin-top: 50px;
+}
+
+.title {
+  font-size: 30px;
+  font-weight: 800;
+  margin-bottom: 30px;
+}
+
+.score {
+  font-size: 22px;
+  margin-bottom: 30px;
+}
+
+.overview {
+  font-size: 26px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.overviewText {
+  margin-bottom: 30px;
+  /* max-width: 00px; */
+}
+
+.genres {
+  font-size: 24px;
+  font-weight: 500;
+  margin-bottom: 20px;
+}
+
+.generList {
+  display: flex;
+  margin-bottom: 30px;
+}
+
+.item {
+  font-weight: 500;
+}
+
+.item + .item {
+  margin-left: 20px;
+}

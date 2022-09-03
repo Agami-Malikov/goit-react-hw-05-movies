@@ -1,0 +1,20 @@
+.item {
+  max-width: 200px;
+  border: 1px solid #eeeeee;
+  padding: 10px;
+  text-align: center;
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.12), 0px 4px 4px rgba(0, 0, 0, 0.06),
+    1px 4px 6px rgba(0, 0, 0, 0.16);
+}
+
+.item a {
+  font-size: 18px;
+  color: #000;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.img {
+  max-width: 200px;
+  margin-bottom: 20px;
+}
