@@ -43,6 +43,7 @@ const HomePage = () => {
   }, [page]);
 
   const { items, loading ,error} = movies;
+  
   return (
     <div className="container">
       {loading && <Loader />}
