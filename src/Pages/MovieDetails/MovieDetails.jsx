@@ -1,6 +1,11 @@
 import { useEffect, useState } from 'react';
-import { useParams, useNavigate, Outlet, useLocation } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+import {
+  useParams,
+  useNavigate,
+  Outlet,
+  Link,
+  useLocation,
+} from 'react-router-dom';
 
 import s from './movieDetails.module.css';
 
@@ -17,7 +22,7 @@ const MovieDetails = () => {
 
   const location = useLocation();
 
-  const from = location.state.from || '/';
+  const from = location.state?.from || '/';
 
   const navigate = useNavigate();
 

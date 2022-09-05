@@ -19,7 +19,7 @@ const ReviewPage = () => {
       }
     };
     fetchReview();
-  }, []);
+  }, [movieId]);
 
   const items = review.map(({ content, author, id }) => (
     <li className={s.item} key={id}>

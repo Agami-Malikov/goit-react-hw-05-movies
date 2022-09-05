@@ -1,23 +1,28 @@
+import { lazy, Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
 
-import HomePage from 'Pages/HomePage/HomePage';
-import SearchPage from 'Pages/SearchPage/SearchPage';
-import MovieDetails from 'Pages/MovieDetails/MovieDetails';
-import Error from 'Pages/Error/Error';
-import CastPage from 'Pages/CastPage/CastPage';
-import ReviewsPage from 'Pages/ReviewsPage/ReviewsPage';
+import Loader from 'shared/components/Loader/Loader';
+
+const HomePage = lazy(() => import('Pages/HomePage/HomePage'));
+const SearchPage = lazy(() => import('Pages/SearchPage/SearchPage'));
+const MovieDetails = lazy(() => import('Pages/MovieDetails/MovieDetails'));
+const Error = lazy(() => import('Pages/Error/Error'));
+const CastPage = lazy(() => import('Pages/CastPage/CastPage'));
+const ReviewsPage = lazy(() => import('Pages/ReviewsPage/ReviewsPage'));
 
 const UserRoutes = () => {
   return (
-    <Routes>
-      <Route path="/" element={<HomePage />} />
-      <Route path="/search" element={<SearchPage />} />
-      <Route path="/movies/:movieId" element={<MovieDetails />}>
-        <Route path="cast" element={<CastPage />} />
-        <Route path="reviews" element={<ReviewsPage />} />
-      </Route>
-      <Route path="*" element={<Error />} />
-    </Routes>
+    <Suspense fallback={<Loader />}>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/search" element={<SearchPage />} />
+        <Route path="/movies/:movieId" element={<MovieDetails />}>
+          <Route path="cast" element={<CastPage />} />
+          <Route path="reviews" element={<ReviewsPage />} />
+        </Route>
+        <Route path="*" element={<Error />} />
+      </Routes>
+    </Suspense>
   );
 };
 
