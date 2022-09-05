@@ -8,11 +8,6 @@ const NavItems = [
     to: '/search',
     text: 'Search',
   },
-
-  {
-    to: '/weekly-trending',
-    text: 'Weekly Trend',
-  },
 ];
 
-export default NavItems
+export default NavItems;

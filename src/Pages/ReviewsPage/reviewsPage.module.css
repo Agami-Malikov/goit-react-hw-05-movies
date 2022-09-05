@@ -1,0 +1,22 @@
+.list {
+}
+
+.item {
+  padding: 15px 0;
+  border: 1px solid #e5e5e5;
+}
+
+.item:not(:last-child) {
+  margin-bottom: 15px;
+}
+
+.author {
+  margin-bottom: 15px;
+  font-size: 18px;
+  font-weight: 500;
+  padding: 0 20px;
+}
+
+.post {
+  padding: 0 20px;
+}

@@ -3,18 +3,17 @@ import PropTypes from 'prop-types';
 import s from './textField.module.css';
 
 const TextField = ({
-  value,
   type,
   name,
   placeholder,
   required,
   autoFocus,
   autoComplete,
-  onChange,
+  handleChange,
 }) => {
   return (
     <input
-      value={value}
+      onChange={handleChange}
       type={type}
       name={name}
       placeholder={placeholder}
@@ -22,7 +21,6 @@ const TextField = ({
       autoFocus={autoFocus}
       autoComplete={autoComplete}
       className={s.input}
-      onChange={onChange}
     />
   );
 };
@@ -37,5 +35,4 @@ TextField.propTypes = {
   required: PropTypes.bool.isRequired,
   autoFocus: PropTypes.bool.isRequired,
   autoComplete: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired,
 };

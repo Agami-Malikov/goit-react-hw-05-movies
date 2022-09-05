@@ -2,10 +2,11 @@ import { Link } from 'react-router-dom';
 
 import s from './SingleMovie.module.css';
 
-const SingleMovie = ({id, title, src }) => {
+const SingleMovie = ({ id, title, src, state }) => {
+  // console.log(state);
   return (
     <li className={s.item}>
-      <Link to={`/movies/${id}`}>
+      <Link state={state} to={`/movies/${id}`}>
         <img
           className={s.img}
           src={`https://image.tmdb.org/t/p/w500/${src}`}

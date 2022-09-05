@@ -1,6 +1,6 @@
 import { getTrend } from 'shared/api/FetchMovieApi';
 import { useState, useEffect } from 'react';
-import MovieList from 'shared/components/Logo/MovieList/MovieList';
+import MovieList from 'shared/components/MovieList/MovieList';
 import Loader from 'shared/components/Loader/Loader';
 import Error from 'Pages/Error/Error';
 

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-// import { Link } from 'react-router-dom';
+import { useParams, useNavigate, Outlet, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import s from './movieDetails.module.css';
 
@@ -15,9 +15,13 @@ const MovieDetails = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
+  const location = useLocation();
+
+  const from = location.state.from || '/';
+
   const navigate = useNavigate();
 
-  const goBack = () => navigate('/');
+  const goBack = () => navigate(from);
 
   useEffect(() => {
     const fetchDetails = async () => {
@@ -47,36 +51,55 @@ const MovieDetails = () => {
     ));
 
   return (
-    <div className={s.details}>
-      <div className="container">
-        {loading && <Loader />}
-        {error && <Error />}
-        <button onClick={goBack}>Go Back</button>
-        {state && (
-          <div className={s.info}>
-            <div>
-              <img
-                className={s.img}
-                src={`https://image.tmdb.org/t/p/w500/${poster_path}`}
-                alt="img"
-              />
-            </div>
+    <>
+      <div className={s.details}>
+        <div className="container">
+          {loading && <Loader />}
+          {error && <Error />}
+          <button onClick={goBack}>Go Back</button>
+          {state && (
+            <div className={s.info}>
+              <div className={s.imgBox}>
+                <img
+                  className={s.img}
+                  src={`https://image.tmdb.org/t/p/w500/${poster_path}`}
+                  alt="img"
+                />
+              </div>
 
-            <div className={s.about}>
-              <h1 className={s.title}>{name || title}</h1>
-              <p className={s.score}>User Score: {vote_average}</p>
-              <p className={s.overview}>Overview</p>
-              <p className={s.overviewText}>{overview}</p>
-              <p className={s.genres}>Genres</p>
-              <ul className={s.generList}>{generList}</ul>
-              <div>
-                <p>Additional Information</p>
+              <div className={s.about}>
+                <h1 className={s.title}>{name || title}</h1>
+                <p className={s.score}>User Score: {vote_average}</p>
+                <p className={s.overview}>Overview</p>
+                <p className={s.overviewText}>{overview}</p>
+                <p className={s.genres}>Genres</p>
+                <ul className={s.generList}>{generList}</ul>
+
+                <p className={s.add}>Additional Information</p>
+
+                <div className={s.links}>
+                  <Link
+                    state={from}
+                    className={s.link}
+                    to={`/movies/${movieId}/cast`}
+                  >
+                    Cast
+                  </Link>
+                  <Link
+                    state={from}
+                    className={s.link}
+                    to={`/movies/${movieId}/reviews`}
+                  >
+                    Reviews
+                  </Link>
+                </div>
               </div>
             </div>
-          </div>
-        )}
+          )}
+          <Outlet />
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

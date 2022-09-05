@@ -1,70 +1,71 @@
 import { useState, useEffect } from 'react';
-// import { useSearchParams } from 'react-router-dom';
-
-// import Error from 'Pages/Error/Error';
-// import Loader from 'shared/components/Loader/Loader';
+import fields from './fields';
+import { useSearchParams } from 'react-router-dom';
+import s from './searchPage.module.css';
+import TextField from 'shared/components/TextField/TextField';
+import Error from 'Pages/Error/Error';
+import Loader from 'shared/components/Loader/Loader';
 
 import { getSearchMovies } from 'shared/api/FetchMovieApi';
-import MovieList from 'shared/components/Logo/MovieList/MovieList';
-import SearchPageForm from './SearchPageForm/SearchPageForm';
+import MovieList from 'shared/components/MovieList/MovieList';
 
 const SearchPage = () => {
-  const [page, setPage] = useState(1);
-  const [images, setImages] = useState({
-    items: [],
-    loading: false,
-    error: null,
-  });
-  const [value, setValue] = useState('');
+  const [state, setState] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const query = searchParams.get('query');
 
   useEffect(() => {
-    const fetchImages = async () => {
-      setImages(prevImages => ({
-        ...prevImages,
-        loading: true,
-        error: null,
-      }));
+    const searchOfName = async () => {
+      setError(null);
+      setLoading(true);
       try {
-        const data = await getSearchMovies(page, value);
-
-        setImages(prevImages => ({
-          ...prevImages,
-          items: [...prevImages.items, ...data.results],
-          loading: false,
-        }));
+        const { results } = await getSearchMovies(query);
+        setState(results);
       } catch (error) {
-        setImages(prevImages => ({
-          ...prevImages,
-          error,
-        }));
+        setError(error);
       } finally {
-        setImages(prevImages => ({
-          ...prevImages,
-          loading: false,
-        }));
+        setLoading(false);
       }
     };
-    if (value) {
-      fetchImages();
+    if (query) {
+      searchOfName();
     }
-  }, [page, value]);
- 
-  const handleFormSubmit = (value) => {
-    console.log(value);
-    setValue(value);
-    setImages({
-      ...images,
-      items: [],
-    });
-    setPage(1);
+  }, [setState, query]);
+
+  const onSubmit = e => {
+    e.preventDefault();
+    const query = e.target[1].value;
+    const params = Object.fromEntries([...searchParams]);
+    setSearchParams({ ...params, query });
   };
 
-  const { items } = images;
+  const handleChange = ({ target }) => {
+    const { value, name } = target;
+    setSearchParams(prevState => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+
+  const isMovies = Boolean(state.length);
 
   return (
     <>
-      <SearchPageForm onSubmit={handleFormSubmit}/>
-      <MovieList items={items} />
+      <div className={s.box}>
+        <form className={s.searchForm} onSubmit={onSubmit}>
+          <button type="submit" className={s.button}>
+            <span className={s.label}>Search</span>
+          </button>
+          <TextField value={query || ''} handleChange={handleChange} {...fields.search} />
+        </form>
+      </div>
+      {loading && <Loader />}
+      {error && <Error />}
+      {isMovies && <MovieList items={state} />}
     </>
   );
 };
